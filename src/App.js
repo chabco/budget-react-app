@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Home from './components/Home';
+import Setup from './components/Setup';
+import NavBar from './components/NavBar';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends Component {
+		state = {
+			name: ""
+		}
+
+		changeName = (name) => {
+			this.setState({
+				name
+			})
+		}
+
+
+	render() { 
+		return ( <Router>
+			<div className="container">
+				<div className="row">
+					<Route path ="/" render={NavBar} />
+
+
+					<Route exact path="/" render={()=>
+					<Home changeName={this.changeName} name={this.name} />}/>
+					
+					<Route exact path="/setup" render={Setup} />
+				</div>
+			</div>
+		</Router> );
+	}
 }
-
+ 
 export default App;
